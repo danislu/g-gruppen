@@ -8,7 +8,7 @@ const containerStyle = {
     position: 'absolute',
     bottom: 0,
     right: 0,
-    margin: 10,
+    margin: 15,
     fontSize: '1.5em'
 };
 
