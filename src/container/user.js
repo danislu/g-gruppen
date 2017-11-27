@@ -1,15 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { pathToJS, isLoaded, isEmpty } from 'react-redux-firebase';
-import CircularProgress from 'material-ui/CircularProgress';
 import UserAvatar from 'react-user-avatar';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import { MenuItem, IconMenu, CircularProgress, Divider } from 'material-ui';
 import { opertions } from './../state/ducks/login';
 
 const Avatar = ({ displayName, avatarUrl }) => <UserAvatar size="48" name={displayName} src={avatarUrl} />;
 
-const User = ({ isLoggedIn, profile, doLogin, doLogOut }) => {
+const User = ({ isLoggedIn, profile, doLogOut }) => {
 
     if (!isLoggedIn) {
         return null;
@@ -24,6 +23,9 @@ const User = ({ isLoggedIn, profile, doLogin, doLogOut }) => {
             iconButtonElement={<div><Avatar displayName={profile.displayName} avatarUrl={profile.avatarUrl} /></div>}
             anchorOrigin={{horizontal: 'left', vertical: 'center'}}
             targetOrigin={{horizontal: 'left', vertical: 'center'}}>
+            <MenuItem primaryText="Hjem" containerElement={<Link to="/" />} />
+            <MenuItem primaryText="Kontakt info" containerElement={<Link to="/settings" />} />
+            <Divider />
             <MenuItem primaryText="Log out" onClick={doLogOut} />
         </IconMenu>
     );
@@ -39,7 +41,6 @@ const mapStateToProps = ({ firebase }) => {
 };
 
 const mapDispToProps = (dispatch) => ({
-    doLogin: () => dispatch(opertions.logIn()),
     doLogOut: () => dispatch(opertions.logOut())
 });
 

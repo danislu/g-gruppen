@@ -3,6 +3,7 @@ import DayEditor from './DayEditor';
 import { operations } from './../../state/ducks/days'
 import { firebaseConnect, dataToJS, populatedDataToJS, firebase } from 'react-redux-firebase';
 import { getId } from './../../utils/dates';
+import { sample } from 'rxjs/operators/sample';
 
 const fbWrapped = firebaseConnect([ '/days', 'users' ])(DayEditor);
 

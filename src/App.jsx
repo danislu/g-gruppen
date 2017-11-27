@@ -12,6 +12,7 @@ import { store, history } from './state/store';
 import Home from './container/home';
 import Toolbar from './container/toolbar';
 import Login from './container/Login';
+import { Settings } from './container/Settings'; 
 
 import { UserIsAuthenticated, UserIsNotAuthenticated } from './container/UserAuthenticated';
 import LoadingWrapper from './container/LoadingWrapper';
@@ -32,6 +33,18 @@ const routes = [
     exact: false,
     component: Login,
     onlyNotAuthenticated: true
+  },
+  {
+    path: "/settings",
+    exact: true,
+    component: Settings,
+    onlyAuthenticated: true
+  },
+  {
+    path: "/test",
+    exact: true,
+    component: () => <h1>Hei</h1>,
+    onlyAuthenticated: true
   }
 ];
 
@@ -46,6 +59,7 @@ const getRoute = (route) => {
 
   return <Route exact={exact || false} path={path} component={component} />;
 };
+
 
 class App extends React.PureComponent {
   render() {
