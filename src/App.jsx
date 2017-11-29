@@ -10,6 +10,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import { store, history } from './state/store';
 import Home from './container/home';
+import GroupSelect from './container/GroupSelect';
+import GroupCreate from './container/GroupCreate';
 import Toolbar from './container/toolbar';
 import Login from './container/Login';
 import { Settings } from './container/Settings'; 
@@ -23,16 +25,16 @@ BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
 
 const routes = [
   {
-    path: "/",
-    exact: true,
-    component: Home,
-    onlyAuthenticated: true
-  },
-  {
     path: "/login",
     exact: false,
     component: Login,
     onlyNotAuthenticated: true
+  },
+  {
+    path: "/",
+    exact: true,
+    component: GroupSelect,
+    onlyAuthenticated: true
   },
   {
     path: "/settings",
@@ -40,6 +42,19 @@ const routes = [
     component: Settings,
     onlyAuthenticated: true
   },
+  {
+    path: "/calender",
+    exact: true,
+    component: Home,
+    onlyAuthenticated: true
+  },
+  {
+    path: "/create",
+    exact: true,
+    component: GroupCreate,
+    onlyAuthenticated: true
+  },
+
   {
     path: "/test",
     exact: true,

@@ -21,7 +21,10 @@ const rootEpic = combineEpics(epics);
 const middleware = [
     routerMiddleware(history),
     createEpicMiddleware(rootEpic, {
-        dependencies: { getFirebase }
+        dependencies: { 
+            getFirebase,
+            history
+        }
     }),
 ];
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { TextField, FloatingActionButton, Divider, Paper, IconButton } from 'material-ui';
 import ContentSave from 'material-ui/svg-icons/content/save';
 import { Field, reduxForm } from 'redux-form';
+import { renderTextField } from './../utils/form';
 
 const wrapper = {
     marginLeft: 10,
@@ -20,20 +21,6 @@ const fabStyle = {
     right: 0,
     margin: 20
 };
-
-const renderTextField = ({
-    input,
-    label,
-    meta: { touched, error },
-    ...custom
-  }) =>
-    <TextField
-      hintText={label}
-      floatingLabelText={label}
-      errorText={touched && error}
-      {...input}
-      {...custom}
-    />
   
 const Component = ({ handleSubmit }) => (<div style={wrapper}>
     <form onSubmit={ handleSubmit }>

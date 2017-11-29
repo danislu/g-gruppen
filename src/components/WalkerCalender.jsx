@@ -9,7 +9,7 @@ const containerStyle = {
     alignItems: 'center'
 };
 
-export default class Home extends React.Component {
+export default class WalkerCalender extends React.Component {
     render() {
         return (
             <div style={containerStyle}>

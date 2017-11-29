@@ -26,7 +26,32 @@ const deregisterWalkerEpic = (action$, store, { getFirebase }) => action$
     .flatMap(({ date, user: { uid }}) => getFirebase().remove(`days/${getId(date)}/walkers/${uid}`))
     .mapTo({ type: 'days/deregisterWalker/done'});
 
+const createGroupEpic = (action$, store, { getFirebase }) => action$
+    .ofType('days/group/create')
+    .map(({ payload }) => ({
+        payload,
+        creator: getFirebase().auth().currentUser.uid
+    }))
+    .flatMap(({ payload, creator }) => {
+        const { name, description, inviteOnly, time, ...weekdays } = payload;
+        return getFirebase().push(`groups`, { 
+            name, 
+            description, 
+            inviteOnly, 
+            time, 
+            weekdays, 
+            creator, 
+            created: new Date(),
+            users: { 
+                [creator]: true 
+            }
+        })
+    })
+    .mapTo({ type: 'group/create/done'});
+
+
 export const rootEpic = combineEpics(
+    createGroupEpic,
     registerWalkerEpic,
     deregisterWalkerEpic
 );
