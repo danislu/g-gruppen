@@ -24,7 +24,7 @@ const User = ({ isLoggedIn, profile, doLogOut }) => {
             anchorOrigin={{horizontal: 'left', vertical: 'center'}}
             targetOrigin={{horizontal: 'left', vertical: 'center'}}>
             <MenuItem primaryText="Hjem" containerElement={<Link to="/" />} />
-            <MenuItem primaryText="Kontakt info" containerElement={<Link to="/settings" />} />
+            <MenuItem primaryText="Kontakt info" containerElement={<Link to="/contact" />} />
             <Divider />
             <MenuItem primaryText="Log out" onClick={doLogOut} />
         </IconMenu>

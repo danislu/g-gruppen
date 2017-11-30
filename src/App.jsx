@@ -9,24 +9,34 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import { store, history } from './state/store';
-import Home from './container/home';
 import GroupSelect from './container/GroupSelect';
 import GroupCreate from './container/GroupCreate';
+import GroupInfo from './container/GroupInfo';
 import Toolbar from './container/toolbar';
 import Login from './container/Login';
-import { Settings } from './container/Settings'; 
+import Contact from './components/Contact';
 
 import { UserIsAuthenticated, UserIsNotAuthenticated } from './container/UserAuthenticated';
-import LoadingWrapper from './container/LoadingWrapper';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
+moment.locale('nb');
+moment.updateLocale('nb', {
+  calendar : {
+      lastDay : '[Yesterday]',
+      sameDay : '[I dag]',
+      nextDay : '[I morgen]',
+      lastWeek : '[Forrige] dddd',
+      nextWeek : '[Neste] dddd',
+      sameElse : 'L'
+  }
+});
 
 const routes = [
   {
     path: "/login",
-    exact: false,
+    exact: true,
     component: Login,
     onlyNotAuthenticated: true
   },
@@ -37,15 +47,9 @@ const routes = [
     onlyAuthenticated: true
   },
   {
-    path: "/settings",
+    path: "/contact",
     exact: true,
-    component: Settings,
-    onlyAuthenticated: true
-  },
-  {
-    path: "/calender",
-    exact: true,
-    component: Home,
+    component: Contact,
     onlyAuthenticated: true
   },
   {
@@ -54,7 +58,12 @@ const routes = [
     component: GroupCreate,
     onlyAuthenticated: true
   },
-
+  {
+    path: "/info/:id",
+    exact: true,
+    component: GroupInfo,
+    onlyAuthenticated: true
+  },
   {
     path: "/test",
     exact: true,
@@ -63,7 +72,7 @@ const routes = [
   }
 ];
 
-const getRoute = (route) => {
+const getRoute = (route, idx) => {
   const { exact, path, onlyAuthenticated, onlyNotAuthenticated } = route;
   let component = route.component;
   if (onlyAuthenticated){
@@ -72,7 +81,7 @@ const getRoute = (route) => {
     component = UserIsNotAuthenticated(route.component);
   }
 
-  return <Route exact={exact || false} path={path} component={component} />;
+  return <Route key={`${idx}-${path}`} exact={exact || false} path={path} component={component} />;
 };
 
 

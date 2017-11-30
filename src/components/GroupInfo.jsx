@@ -12,7 +12,8 @@ import {
     Avatar
 } from 'material-ui';
 import { Icon } from 'material-ui/svg-icons/maps/directions-walk';
-import { isLoaded } from 'react-redux-firebase';
+import { isLoaded, isEmpty } from 'react-redux-firebase';
+import Agenda from './Agenda/index';
 
 const styles = {
     wrapper: {
@@ -20,45 +21,25 @@ const styles = {
         marginRigth: 10,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-start'
+        //alignItems: 'center'
     },
     button: {
         marginBottom: 5
     }
 };
 
-export default ({ group, history }) => {
 
-    const renderGroup = ({ name, id }) => (
-        <ListItem
-            //leftAvatar={<Avatar><IconButton><Icon /></IconButton></Avatar>}
-            primaryText={name}
-            onClick={() => onSelect(id)}
-            secondaryText={
-            <p>
-                <span style={{color: '#000'}}>Brendan Lim</span> --
-                I&apos;ll be in your neighborhood doing errands this weekend. Do you want to grab brunch?
-            </p>
-            }
-            secondaryTextLines={2}
-        />
-    );
-    
-    const renderGroups = (groups) => Object.entries(groups)
-    // slitt liste i to...
-        .map(([id, value]) => ({ id, ...value }))
-        .map(renderGroup);
+export default ({ group, ...rest }) => {
+    if (!isLoaded(group) || isEmpty(group)) {
+        return "Laster...";
+    }
+    const { name, description } = group;
 
     return (
         <div style={styles.wrapper}>
-            <List>
-            <Subheader>Gågrupper</Subheader>
-            {
-                isLoaded(groups) 
-                    ? renderGroups(groups)
-                    : "Laster..."
-            }
-            </List>
+            <h2>{ name }</h2>
+            <p>{ description }</p>
+            <Agenda />
         </div>
     );
 }

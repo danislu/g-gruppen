@@ -27,7 +27,7 @@ const styles = {
     }
 };
 
-export default ({ groups, uid, onSelect }) => {
+export default ({ groups, uid, onSelect, id }) => {
 
     const renderGroup = ({ name, description, weekdays, inviteOnly, id }) => (
         <ListItem
@@ -59,7 +59,7 @@ export default ({ groups, uid, onSelect }) => {
     return (
         <div style={styles.wrapper}>
             <List>
-            <Subheader>Gågrupper</Subheader>
+            <Subheader>Gågrupper { id }!</Subheader>
             {
                 isLoaded(groups) 
                     ? renderGroups(groups)

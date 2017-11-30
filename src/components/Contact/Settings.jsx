@@ -2,7 +2,7 @@ import React from 'react';
 import { TextField, FloatingActionButton, Divider, Paper, IconButton } from 'material-ui';
 import ContentSave from 'material-ui/svg-icons/content/save';
 import { Field, reduxForm } from 'redux-form';
-import { renderTextField } from './../utils/form';
+import { renderTextField } from './../../utils/form';
 
 const wrapper = {
     marginLeft: 10,
@@ -25,7 +25,7 @@ const fabStyle = {
 const Component = ({ handleSubmit }) => (<div style={wrapper}>
     <form onSubmit={ handleSubmit }>
         <div style={form}>
-        <h2>Kontakt info</h2>
+        <h2>Kontaktinfo</h2>
         <Field name="displayName" component={renderTextField} label="Navn" type="text" />
         <Field name="email" component={renderTextField} label="E-post" type="email" />
         <Field name="phone" component={renderTextField} label="Telefon" type="tel" />

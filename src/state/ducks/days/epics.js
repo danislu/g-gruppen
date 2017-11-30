@@ -4,26 +4,22 @@ import { getId, isInPast } from './../../../utils/dates';
 
 const registerWalkerEpic = (action$, store, { getFirebase }) => action$
     .ofType('days/registerWalker')
-    .filter(({ payload }) => {
-        var now = new Date();
-        now.setHours(0,0,0,0);
-        return (payload >= now);
-    })
+    .filter(({ payload }) => !isInPast(payload.day))
     .map(({payload}) => ({ 
-        date: payload, 
+        ...payload, 
         user : getFirebase().auth().currentUser
     }))
-    .flatMap(({ date, user: { uid }}) => getFirebase().set(`days/${getId(date)}/walkers/${uid}`, true))
+    .flatMap(({ id, day, user: { uid }}) => getFirebase().set(`/groups/${id}/days/${getId(day)}/walkers/${uid}`, true))
     .mapTo({ type: 'days/registerWalker/done'});
 
 const deregisterWalkerEpic = (action$, store, { getFirebase }) => action$
     .ofType('days/deregisterWalker')
-    .filter(({ payload }) => !isInPast(payload))
+    .filter(({ payload }) => !isInPast(payload.day))
     .map(({payload}) => ({ 
-        date: payload, 
+        ...payload, 
         user : getFirebase().auth().currentUser
     }))
-    .flatMap(({ date, user: { uid }}) => getFirebase().remove(`days/${getId(date)}/walkers/${uid}`))
+    .flatMap(({ id, day, user: { uid }}) => getFirebase().remove(`/groups/${id}/days/${getId(day)}/walkers/${uid}`))
     .mapTo({ type: 'days/deregisterWalker/done'});
 
 const createGroupEpic = (action$, store, { getFirebase }) => action$
@@ -49,9 +45,14 @@ const createGroupEpic = (action$, store, { getFirebase }) => action$
     })
     .mapTo({ type: 'group/create/done'});
 
+const selectGroup = (action$, store, { history }) => action$
+    .ofType('days/group')
+    .do(({ payload }) => history.push('/info'))
+    .mapTo({ type: 'days/group/done'});
 
 export const rootEpic = combineEpics(
     createGroupEpic,
     registerWalkerEpic,
-    deregisterWalkerEpic
+    deregisterWalkerEpic,
+    selectGroup
 );
