@@ -9,9 +9,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import { store, history } from './state/store';
-import GroupSelect from './container/GroupSelect';
-import GroupCreate from './container/GroupCreate';
-import GroupInfo from './container/GroupInfo';
+import Select from './container/GroupSelect';
+import Create from './container/Create';
+import Info from './container/GroupInfo';
 import Toolbar from './container/toolbar';
 import Login from './container/Login';
 import Contact from './components/Contact';
@@ -43,7 +43,7 @@ const routes = [
   {
     path: "/",
     exact: true,
-    component: GroupSelect,
+    component: Select,
     onlyAuthenticated: true
   },
   {
@@ -55,13 +55,13 @@ const routes = [
   {
     path: "/create",
     exact: true,
-    component: GroupCreate,
+    component: Create,
     onlyAuthenticated: true
   },
   {
     path: "/info/:id",
     exact: true,
-    component: GroupInfo,
+    component: Info,
     onlyAuthenticated: true
   },
   {

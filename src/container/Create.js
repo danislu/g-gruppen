@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { pathToJS, isLoaded, isEmpty, dataToJS, firebaseConnect } from 'react-redux-firebase';
-import GroupCreate from './../components/GroupCreate';
+import Create from './../components/Create';
 import { operations } from './../state/ducks/days';
 
 const createInitialValues = () => {
@@ -16,7 +16,8 @@ const createInitialValues = () => {
         saturday: false,
         sunday: false,
         inviteOnly: true,
-        time: new Date()
+        time: new Date(),
+        requiredCount: 1
     };
 };
 
@@ -27,4 +28,4 @@ export default connect(
     (dispatch) => ({
         onSubmit: (data) => dispatch(operations.createGroup(data))
     })
-)(GroupCreate);
+)(Create);

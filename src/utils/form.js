@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Checkbox, TimePicker } from 'material-ui';
+import { TextField, Checkbox, TimePicker, Slider, MenuItem, SelectField } from 'material-ui';
 
 export const renderTextField = ({
     input,
@@ -8,7 +8,7 @@ export const renderTextField = ({
     ...custom
   }) =>
     <TextField
-      hintText={label}
+      hintText={label} 
       floatingLabelText={label}
       errorText={touched && error}
       {...input}
@@ -28,6 +28,15 @@ export const renderTimePicker = ({ input, label, ...custom}) =>
       hintText={label}
       value={new Date(input.value)}
       onChange={date => input.onChange(date.toString())}
+      autoOk={true}
       {...input}
       {...custom}
   />
+
+export const renderSelect = ({ input, items}) => 
+  <SelectField
+    value={input.value}
+    onChange={(event, index, value) => input.onChange(value) }
+    maxHeight={200}>
+    { items.map((value, idx) => <MenuItem value={value} key={`${value}-${idx}`} primaryText={value} /> ) }
+  </SelectField>

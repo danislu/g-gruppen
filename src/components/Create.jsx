@@ -2,7 +2,7 @@ import React from 'react';
 import { TextField, FloatingActionButton, Divider, Paper, IconButton } from 'material-ui';
 import ContentSave from 'material-ui/svg-icons/content/save';
 import { Field, reduxForm } from 'redux-form';
-import { renderTextField, renderCheckbox, renderTimePicker } from './../utils/form';
+import { renderTextField, renderCheckbox, renderTimePicker, renderSelect } from './../utils/form';
 
 const wrapper = {
     marginLeft: 10,
@@ -51,8 +51,13 @@ const Component = ({ handleSubmit }) => (<form onSubmit={ handleSubmit }>
             <Field name="time" label="Tid" component={renderTimePicker} />
         </div>
 
+        <label>Minimum antall</label>
+        <div>
+            <Field name="requiredCount"  
+                component={renderSelect} 
+                items={[1,2,3,4,5,6,7,8,9,10]} />
+        </div>
         
-
         <FloatingActionButton type="submit" style={fabStyle}>
             <ContentSave />
         </FloatingActionButton>
