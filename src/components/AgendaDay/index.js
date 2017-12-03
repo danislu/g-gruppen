@@ -2,14 +2,14 @@ import AgendaDay from './AgendaDay';
 import { connect } from 'react-redux';
 import { firebaseConnect, populatedDataToJS } from 'react-redux-firebase';
 import { operations } from './../../state/ducks/days';
-import withCurrentGroup from './../../container/withCurrentGroup';
+import withRouterAndParamsAsProps from './../../container/withRouterAndParamsAsProps';
 import { getId } from './../../utils/dates';
 
 const populates = [
     { child: 'walkers', root: 'users' }
 ];
 
-export default withCurrentGroup(connect(
+export default withRouterAndParamsAsProps(connect(
     ({ firebase }, { id, date }) => {
         const day = populatedDataToJS(firebase, `/groups/${id}/days/${getId(date)}`, populates);
         const walkers = day ? day.walkers : {};

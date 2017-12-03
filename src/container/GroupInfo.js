@@ -2,9 +2,9 @@ import GroupInfo from './../components/GroupInfo';
 import { connect } from 'react-redux';
 import { firebaseConnect, populatedDataToJS } from 'react-redux-firebase';
 import { operations } from '../state/ducks/days/index';
-import withCurrentGroup from './withCurrentGroup';
+import withRouterAndParamsAsProps from './withRouterAndParamsAsProps';
 
-export default withCurrentGroup(connect(
+export default withRouterAndParamsAsProps(connect(
     ({ days, firebase }, { id }) => {
         const groups = populatedDataToJS(firebase, `/groups`, [{ child: 'users', root: 'users' }, { child: 'creator', root: 'users' }]) || {};
         return {

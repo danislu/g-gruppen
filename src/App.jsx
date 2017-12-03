@@ -11,10 +11,12 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { store, history } from './state/store';
 import Select from './container/GroupSelect';
 import Create from './container/Create';
+import Group from './container/Group';
 import Info from './container/GroupInfo';
 import Toolbar from './container/toolbar';
 import Login from './container/Login';
 import Contact from './components/Contact';
+import navBarFactory from './components/Navbar';
 
 import { UserIsAuthenticated, UserIsNotAuthenticated } from './container/UserAuthenticated';
 
@@ -59,9 +61,21 @@ const routes = [
     onlyAuthenticated: true
   },
   {
-    path: "/info/:id",
+    path: "/group/:id/walker",
     exact: true,
     component: Info,
+    onlyAuthenticated: true
+  },
+  {
+    path: "/group/:id/info",
+    exact: true,
+    component: Group,
+    onlyAuthenticated: true
+  },
+  {
+    path: "/group/:id/kid",
+    exact: true,
+    component: Group,
     onlyAuthenticated: true
   },
   {
@@ -84,6 +98,11 @@ const getRoute = (route, idx) => {
   return <Route key={`${idx}-${path}`} exact={exact || false} path={path} component={component} />;
 };
 
+const NavBar = navBarFactory([
+  '/group/:id/walker',
+  '/group/:id/kid',
+  '/group/:id/info',
+]);
 
 class App extends React.PureComponent {
   render() {
@@ -91,11 +110,14 @@ class App extends React.PureComponent {
         <Provider store={store}>
           <Router history={history}>
             <MuiThemeProvider muiTheme={getMuiTheme(baseTheme)}>
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
               <Toolbar />
+              <div style={{ flex: '1' }}>
               {
                 routes.map(getRoute)
               }
+              </div>
+              <NavBar />
             </div>
             </MuiThemeProvider>
           </Router>

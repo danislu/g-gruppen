@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import DayPicker from './DayPicker';
 import { operations } from './../../state/ducks/days';
 import { firebaseConnect, populatedDataToJS } from 'react-redux-firebase';
-import withCurrentGroup from './../../container/withCurrentGroup';
+import withRouterAndParamsAsProps from './../../container/withRouterAndParamsAsProps';
 
 const fbWrapped = firebaseConnect([ '/groups', 'users' ])(DayPicker);
 
@@ -19,4 +19,4 @@ const mapDispatchToProps = (dispatch) => ({
     onDayClick: (day) => dispatch(operations.selectDay(day))
 });
 
-export default withCurrentGroup(connect(mapStateToProps, mapDispatchToProps)(fbWrapped));
+export default withRouterAndParamsAsProps(connect(mapStateToProps, mapDispatchToProps)(fbWrapped));

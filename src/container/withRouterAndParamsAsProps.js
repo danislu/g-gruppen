@@ -2,10 +2,10 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import hoistStatics from 'hoist-non-react-statics';
 
-const withCurrentGroup = (Component) => {
+const withRouterAndParamsAsProps = (Component) => {
     const C = withRouter((props) => {
-        const { match, ...rest} = props;
-        return (<Component id={match.params.id} {...rest} />);
+        const { match: { params } } = props;
+        return (<Component {...params} {...props} />);
     });
 
     C.WrappedComponent = Component;
@@ -13,4 +13,4 @@ const withCurrentGroup = (Component) => {
     return hoistStatics(C, Component);
 };
 
-export default withCurrentGroup;
+export default withRouterAndParamsAsProps;
