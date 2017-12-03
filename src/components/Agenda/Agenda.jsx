@@ -1,7 +1,6 @@
 import React from 'react';
-import { getId, isInPast } from './../../utils/dates'
-import { ListItem, Avatar, IconButton, IconMenu, MenuItem, List, FlatButton } from 'material-ui';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import { isInPast } from './../../utils/dates'
+import { IconButton, List } from 'material-ui';
 import ArrowForwardIcon from 'material-ui/svg-icons/navigation/arrow-forward';
 import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import HomeIcon from 'material-ui/svg-icons/action/home';
@@ -28,7 +27,6 @@ const styles = {
     }
 };
 
-
 const toWeek = (days) => ({
     0: !!days.sunday,
     1: !!days.monday,
@@ -39,43 +37,10 @@ const toWeek = (days) => ({
     6: !!days.saturday
 });
 
-const iconButtonElement = (
-    <IconButton
-      touch={true}
-      tooltip="more"
-      tooltipPosition="bottom-left"
-    >
-      <MoreVertIcon color={'grey400'} />
-    </IconButton>
-  );
-
-const renderDay = ({ date, event, onAdd, onRemove, onChangeFree }, idx) => {
-
-    const rightIconMenu = (
-        <IconMenu iconButtonElement={iconButtonElement}>
-            <MenuItem onClick={() => onAdd(date)}>Gå</MenuItem>
-            <MenuItem onClick={() => onRemove(date)}>Ikke gå</MenuItem>
-            <MenuItem checked={event.free} onChange={() => onChangeFree(date)}>Ingen gågruppe denne dagen</MenuItem>
-        </IconMenu>
-    );
-
-    return (<ListItem
-        key={`${idx}-${date}`}
-        rightIconButton={rightIconMenu}
-        primaryText={ moment(date).calendar()}
-        secondaryText={
-        <p>
-            <span style={{color: '#000'}}>{JSON.stringify(event)}</span>
-        </p>
-        }
-        secondaryTextLines={1}
-    />);
-};
-
 const getMonday = (d) => {
     d = new Date(d);
     var day = d.getDay(),
-        diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+        diff = d.getDate() - day + (day === 0 ? -6:1); // adjust when day is sunday
     return new Date(d.setDate(diff));
 };
   

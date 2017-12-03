@@ -1,17 +1,4 @@
 import React from 'react';
-import { 
-    TextField, 
-    FloatingActionButton, 
-    Divider, 
-    Paper, 
-    IconButton, 
-    RaisedButton,
-    List,
-    Subheader,
-    ListItem,
-    Avatar
-} from 'material-ui';
-import { Icon } from 'material-ui/svg-icons/maps/directions-walk';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
 import Agenda from './Agenda/index';
 

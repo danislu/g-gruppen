@@ -1,6 +1,6 @@
 import GroupInfo from './../components/GroupInfo';
 import { connect } from 'react-redux';
-import { pathToJS, dataToJS, firebaseConnect, isEmpty, isLoaded, populatedDataToJS } from 'react-redux-firebase';
+import { firebaseConnect, populatedDataToJS } from 'react-redux-firebase';
 import { operations } from '../state/ducks/days/index';
 import withCurrentGroup from './withCurrentGroup';
 

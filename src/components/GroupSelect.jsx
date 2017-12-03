@@ -1,17 +1,9 @@
 import React from 'react';
-import { 
-    TextField, 
-    FloatingActionButton, 
-    Divider, 
-    Paper, 
-    IconButton, 
-    RaisedButton,
+import {  
     List,
     Subheader,
-    ListItem,
-    Avatar
+    ListItem
 } from 'material-ui';
-import { Icon } from 'material-ui/svg-icons/maps/directions-walk';
 import { isLoaded } from 'react-redux-firebase';
 
 const styles = {

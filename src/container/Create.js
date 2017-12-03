@@ -1,6 +1,4 @@
-import React from 'react';
 import { connect } from 'react-redux';
-import { pathToJS, isLoaded, isEmpty, dataToJS, firebaseConnect } from 'react-redux-firebase';
 import Create from './../components/Create';
 import { operations } from './../state/ducks/days';
 
@@ -23,7 +21,7 @@ const createInitialValues = () => {
 
 export default connect(
     ({ firebase }) => ({
-            initialValues: createInitialValues()
+        initialValues: createInitialValues()
     }),
     (dispatch) => ({
         onSubmit: (data) => dispatch(operations.createGroup(data))

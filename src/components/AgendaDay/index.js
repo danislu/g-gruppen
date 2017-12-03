@@ -1,6 +1,6 @@
 import AgendaDay from './AgendaDay';
 import { connect } from 'react-redux';
-import { pathToJS, dataToJS, firebaseConnect, isEmpty, isLoaded, populatedDataToJS } from 'react-redux-firebase';
+import { firebaseConnect, populatedDataToJS } from 'react-redux-firebase';
 import { operations } from './../../state/ducks/days';
 import withCurrentGroup from './../../container/withCurrentGroup';
 import { getId } from './../../utils/dates';

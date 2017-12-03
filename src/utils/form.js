@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Checkbox, TimePicker, Slider, MenuItem, SelectField } from 'material-ui';
+import { TextField, Checkbox, TimePicker, MenuItem, SelectField } from 'material-ui';
 
 export const renderTextField = ({
     input,

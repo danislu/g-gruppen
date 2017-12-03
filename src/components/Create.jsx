@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, FloatingActionButton, Divider, Paper, IconButton } from 'material-ui';
+import { FloatingActionButton, Divider } from 'material-ui';
 import ContentSave from 'material-ui/svg-icons/content/save';
 import { Field, reduxForm } from 'redux-form';
 import { renderTextField, renderCheckbox, renderTimePicker, renderSelect } from './../utils/form';

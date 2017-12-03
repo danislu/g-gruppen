@@ -1,12 +1,6 @@
 import React from 'react';
-import { getId, isInPast } from './../../utils/dates'
-import { ListItem, Avatar, IconButton, IconMenu, MenuItem, List, FlatButton, Card, CardHeader, CardText, CardActions } from 'material-ui';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import ArrowForwardIcon from 'material-ui/svg-icons/navigation/arrow-forward';
-import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
-import HomeIcon from 'material-ui/svg-icons/action/home';
+import { ListItem, Avatar, IconButton, List, FlatButton, Card, CardHeader, CardText, CardActions } from 'material-ui';
 import moment from 'moment';
-import ChildCareIcon from 'material-ui/svg-icons/places/child-care';
 import PhoneIcon from 'material-ui/svg-icons/hardware/phone-iphone';
 import EmailIcon from 'material-ui/svg-icons/communication/email';
 moment().locale('nb');

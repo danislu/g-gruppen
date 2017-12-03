@@ -1,7 +1,6 @@
 import GroupSelect from './../components/GroupSelect';
 import { connect } from 'react-redux';
 import { pathToJS, dataToJS, firebaseConnect, isEmpty, isLoaded } from 'react-redux-firebase';
-import { operations } from '../state/ducks/days/index';
 import { withRouter } from 'react-router-dom';
 
 export default withRouter(connect(
