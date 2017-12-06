@@ -6,30 +6,47 @@ import InfoIcon from 'material-ui/svg-icons/action/info';
 import { BottomNavigationItem } from 'material-ui/BottomNavigation';
 import { withRouter, Route } from 'react-router';
 
-const withSelectedIndex = (index) => (
-    <Paper zDepth={1}>
+const getIndex = (part) => {
+    switch(part) {
+        case 'walker': return 0;
+        case 'kid': return 1;
+        default: return 2;
+    }
+};
+
+const BottomNav = ({items, index}) => {
+    return (<Paper zDepth={1}>
         <BottomNavigation selectedIndex={index}>
-            <BottomNavigationItem icon={<WalkIcon />} label={"Følger"} />
-            <BottomNavigationItem icon={<ChildIcon />} label={"Delager"} />
-            <BottomNavigationItem icon={<InfoIcon />} label={"Info"} />
+        {
+            items.map(item => <BottomNavigationItem {...item} />)
+        }
         </BottomNavigation>
-    </Paper>
-);
+    </Paper>);
+};
 
+const withSelectedIndex = withRouter(({ match, history }) => {
+    const { params } = match;
+    const { part, id } = params;
 
+    const baseUrl = `/group/${id}`;
+    const index = getIndex(part);
+    
+    const items = [
+        { icon: <WalkIcon />, label: 'Følger', onClick: () => history.push(`${baseUrl}/walker`) },
+        { icon: <ChildIcon />, label: 'Deltager', onClick: () => history.push(`${baseUrl}/kid`) },
+        { icon: <InfoIcon />, label: 'Info', onClick: () => history.push(`${baseUrl}/info`) },
+    ];
 
-export default (routes) => withRouter(({ match, selectedIndex }) => {
+    return <BottomNav items={items} index={index} />;
+});
+
+export default ({path, parts}) => () => {
     return (
         <div>
         { 
-            routes.map(
-                (navPath, idx) => (
-                    <Route path={navPath} 
-                        component={() => withSelectedIndex(idx)} />
-                )
-            )
+            <Route path={path} component={withSelectedIndex} />
         }
         </div>
     );
-});
+};
 

@@ -69,7 +69,7 @@ const routes = [
   {
     path: "/group/:id/info",
     exact: true,
-    component: Group,
+    component: Info,
     onlyAuthenticated: true
   },
   {
@@ -81,7 +81,7 @@ const routes = [
   {
     path: "/test",
     exact: true,
-    component: () => <h1>Hei</h1>,
+    component: () => <h1>hoi</h1>,
     onlyAuthenticated: true
   }
 ];
@@ -98,11 +98,9 @@ const getRoute = (route, idx) => {
   return <Route key={`${idx}-${path}`} exact={exact || false} path={path} component={component} />;
 };
 
-const NavBar = navBarFactory([
-  '/group/:id/walker',
-  '/group/:id/kid',
-  '/group/:id/info',
-]);
+const NavBar = navBarFactory({
+  path: '/group/:id/:part'
+});
 
 class App extends React.PureComponent {
   render() {
