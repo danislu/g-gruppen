@@ -13,6 +13,6 @@ export default withRouter(connect(
         };
     },
     (dispatch, { history }) => ({
-        onSelect: (id) => history.push(`/info/${id}`)
+        onSelect: (id) => history.push(`/group/${id}/info`)
     })
 )(firebaseConnect([ '/groups', 'auth' ])(GroupSelect)));

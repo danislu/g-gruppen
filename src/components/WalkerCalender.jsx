@@ -17,5 +17,5 @@ export default class WalkerCalender extends React.Component {
                 <DayEditor />
             </div>
         );
-    }    
+    }
 }

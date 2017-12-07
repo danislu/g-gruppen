@@ -15,7 +15,6 @@ const styles = {
     }
 };
 
-
 export default ({ group, ...rest }) => {
     if (!isLoaded(group) || isEmpty(group)) {
         return "Laster...";

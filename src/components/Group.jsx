@@ -1,7 +1,4 @@
 import React from 'react';
-import { BottomNavigation, Paper, Snackbar } from 'material-ui';
-import Icon from 'material-ui/svg-icons/maps/directions-walk';
-import { BottomNavigationItem } from 'material-ui/BottomNavigation';
 
 const styles = {
     containercontainer: { 
@@ -26,7 +23,6 @@ const styles = {
 };
 
 export default ({ history, routes }) => {
-    const { push } = history;
     return (
         <div style={styles.containercontainer}>
         <div style={styles.container}>  

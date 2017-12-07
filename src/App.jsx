@@ -21,6 +21,7 @@ import navBarFactory from './components/Navbar';
 import { UserIsAuthenticated, UserIsNotAuthenticated } from './container/UserAuthenticated';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import './App.css';
 
 BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
 moment.locale('nb');
@@ -102,20 +103,25 @@ const NavBar = navBarFactory({
   path: '/group/:id/:part'
 });
 
+
 class App extends React.PureComponent {
   render() {
     return (
         <Provider store={store}>
           <Router history={history}>
             <MuiThemeProvider muiTheme={getMuiTheme(baseTheme)}>
-            <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-              <Toolbar />
-              <div style={{ flex: '1' }}>
+            <div className="container">
+              <div className="header">
+                <Toolbar />
+              </div>
+              <div className="content">
               {
                 routes.map(getRoute)
               }
               </div>
-              <NavBar />
+              <div className="footer">
+                <NavBar />
+              </div>
             </div>
             </MuiThemeProvider>
           </Router>

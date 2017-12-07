@@ -18,7 +18,7 @@ const BottomNav = ({items, index}) => {
     return (<Paper zDepth={1}>
         <BottomNavigation selectedIndex={index}>
         {
-            items.map(item => <BottomNavigationItem {...item} />)
+            items.map((item, idx) => <BottomNavigationItem key={`${index}+${item.label}`} {...item} />)
         }
         </BottomNavigation>
     </Paper>);
