@@ -5386,6 +5386,10 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-avatar-stack@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-avatar-stack/-/react-avatar-stack-0.0.4.tgz#4f3c8657474db410052de17ee41fff12f23d3cf9"
+
 react-big-calendar@^0.17.0:
   version "0.17.0"
   resolved "https://registry.yarnpkg.com/react-big-calendar/-/react-big-calendar-0.17.0.tgz#2c3cb0a660bf2ee22610453cbf123a886ffae6f1"

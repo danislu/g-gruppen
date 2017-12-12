@@ -30,14 +30,13 @@
 html,
 body
 .container {
-  overflow: hidden;
+  overflow: auto;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  
 }
 
 .header {
@@ -48,7 +47,7 @@ body
   flex: 1 0 auto;
   position: relative;
   overflow-y: scroll;
-  background-color: cyan;
+  background-color: burlywood;
 }
 
 .footer {

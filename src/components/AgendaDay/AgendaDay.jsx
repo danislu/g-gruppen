@@ -1,5 +1,7 @@
 import React from 'react';
-import { ListItem, Avatar, IconButton, List, FlatButton, Card, CardHeader, CardText, CardActions } from 'material-ui';
+import { Paper, ListItem, Avatar, IconButton, List, FlatButton, Card, CardHeader, CardText, CardActions, IconMenu, MenuItem } from 'material-ui';
+//import AvatarStack from 'react-avatar-stack';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import moment from 'moment';
 import PhoneIcon from 'material-ui/svg-icons/hardware/phone-iphone';
 import EmailIcon from 'material-ui/svg-icons/communication/email';
@@ -25,6 +27,21 @@ const styles = {
     }
 };
 
+const iconButtonElement = (
+    <IconButton
+      touch={true}
+      tooltip="more"
+      tooltipPosition="bottom-left"
+    >
+      <MoreVertIcon color={ '#000' } />
+    </IconButton>
+  );
+
+const avatars = (urls) => 
+    <div>
+    { urls.map(url => <Avatar src={url} />) }
+    </div>;
+
 
 const renderWalker = ({ displayName = "...", avatarUrl, email, phone, child }, idx) => (
     <ListItem key={`${idx}-${displayName}`}
@@ -41,10 +58,31 @@ const renderWalker = ({ displayName = "...", avatarUrl, email, phone, child }, i
         secondaryTextLines={2}
   />);
 
-export default ({ walkers, date, free, onAdd, onRemove, onChangeFree }) => {
+const renderDay = ({ walkers, date, free, disabled, onAdd, onRemove, onChangeFree }) => {
+    const rightIconMenu = (
+        <IconMenu iconButtonElement={iconButtonElement}>
+          <MenuItem onClick={() => onAdd(date)}>Gå</MenuItem>
+          <MenuItem onClick={() => onRemove(date)}>Ikke gå</MenuItem>
+        </IconMenu>
+      );
+
+    return <Paper zDepth={1} style={{ marginBottom: 2 }}>
+        <ListItem key={`${date}`} disabled={disabled}
+            rightIconButton={rightIconMenu}
+            leftAvatar={ avatars(walkers.map(w => w.avatarUrl)) }
+            primaryText={ walkers.map(w => w.displayName) }    
+            secondaryText={<div style={styles.wrapper}>
+                {moment(date).format('dddd LL')}<br />
+            </div>}
+            secondaryTextLines={2}
+        />
+    </Paper>;
+};
+
+const oldRenderDay = ({ walkers, date, free, disabled, onAdd, onRemove, onChangeFree }) => {
     const expandable = walkers.length > 0;
     return (
-        <Card key={`${date}`}>
+        <Card key={`${date}`} disabled={disabled}>
         <CardHeader
           title={moment(date).calendar()}
           subtitle={moment(date).format('dddd LL')}
@@ -73,3 +111,5 @@ export default ({ walkers, date, free, onAdd, onRemove, onChangeFree }) => {
         }
       </Card>);
 };
+
+export default renderDay;

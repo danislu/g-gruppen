@@ -1,5 +1,5 @@
 import React from 'react';
-import { isInPast } from './../../utils/dates'
+import { isInPast, isTodayOrPast } from './../../utils/dates'
 import { IconButton, List } from 'material-ui';
 import ArrowForwardIcon from 'material-ui/svg-icons/navigation/arrow-forward';
 import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
@@ -52,9 +52,9 @@ const renderWeek = ({ date, days = {}, weekdays, ...props }) => {
         { 
             [0,1,2,3,4,5,6]
                 .map((i) => moment(monday).add(i, 'days').toDate())
-                .filter(d => !isInPast(d))
-                .filter(d => week[d.getDay()])
-                .map((d) => <AgendaDay date={d} />)
+                //.filter(d => !isInPast(d))
+                //.filter(d => week[d.getDay()])
+                .map((d) => <AgendaDay date={d} disabled={!week[d.getDay()]} />)
         }
     </List>);
 };
@@ -89,7 +89,7 @@ export default class Agenda extends React.PureComponent {
         return (<div style={styles.wrapper}>
             Agenda
             <div style={styles.buttons}>
-                <IconButton onClick={() => this.onNextWeekClick(-1) }><ArrowBackIcon /></IconButton>
+                <IconButton disabled={isTodayOrPast(currentDate)} onClick={() => this.onNextWeekClick(-1) }><ArrowBackIcon /></IconButton>
                 <IconButton onClick={this.onTodayClick }><HomeIcon /></IconButton>
                 <IconButton onClick={() => this.onNextWeekClick(1) }><ArrowForwardIcon /></IconButton>
             </div>
