@@ -47,7 +47,7 @@ body
   flex: 1 0 auto;
   position: relative;
   overflow-y: scroll;
-  background-color: burlywood;
+  background-color: lightgrey;
 }
 
 .footer {

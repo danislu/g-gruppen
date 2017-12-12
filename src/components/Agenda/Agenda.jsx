@@ -87,7 +87,6 @@ export default class Agenda extends React.PureComponent {
         const { group, ...rest } = this.props;
         
         return (<div style={styles.wrapper}>
-            Agenda
             <div style={styles.buttons}>
                 <IconButton disabled={isTodayOrPast(currentDate)} onClick={() => this.onNextWeekClick(-1) }><ArrowBackIcon /></IconButton>
                 <IconButton onClick={this.onTodayClick }><HomeIcon /></IconButton>

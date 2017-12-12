@@ -13,10 +13,11 @@ import Select from './container/GroupSelect';
 import Create from './container/Create';
 import Group from './container/Group';
 import Info from './container/GroupInfo';
-import Toolbar from './container/toolbar';
+import Toolbar from './container/Toolbar';
 import Login from './container/Login';
 import Contact from './components/Contact';
 import navBarFactory from './components/Navbar';
+import Drawer from './container/Drawer';
 
 import { UserIsAuthenticated, UserIsNotAuthenticated } from './container/UserAuthenticated';
 
@@ -119,9 +120,7 @@ class App extends React.PureComponent {
                 routes.map(getRoute)
               }
               </div>
-              <div className="footer">
-                <NavBar />
-              </div>
+              <Drawer />
             </div>
             </MuiThemeProvider>
           </Router>

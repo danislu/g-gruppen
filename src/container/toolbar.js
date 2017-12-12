@@ -1,15 +1,8 @@
-import React from 'react';
+import Toolbar from './../components/Toolbar';
+import { connect } from 'react-redux';
+import { operations } from './../state/ducks/app';
 
-import AppBar from 'material-ui/AppBar';
-import User from './user';
-import { withRouter } from 'react-router-dom';
-
-const Toolbar = ({ history }) => (
-    <AppBar 
-        title="Gågruppen" 
-        showMenuIconButton={false}
-        onTitleTouchTap={() => history.push("/")}
-        iconElementRight={<User />}/>
-);
-
-export default withRouter(Toolbar);
+export default connect(
+    (state) => ({ title: 'Gågruppeappen' }),
+    (dispatch) => ({ openDrawer: () => dispatch(operations.openDrawer()) })
+)(Toolbar);

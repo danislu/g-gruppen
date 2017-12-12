@@ -23,9 +23,6 @@ export default ({ group, ...rest }) => {
 
     return (
         <div style={styles.wrapper}>
-            <h2>{ name }</h2>
-            <h3>Info</h3>
-            <p>{ description }</p>
             <Agenda />
         </div>
     );
