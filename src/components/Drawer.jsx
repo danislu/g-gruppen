@@ -1,6 +1,6 @@
 import React from 'react';
 import { Drawer, MenuItem } from 'material-ui';
-import User from './../container/user';
+import User from './../container/User';
 import { Divider } from 'material-ui';
 
 const styles = {

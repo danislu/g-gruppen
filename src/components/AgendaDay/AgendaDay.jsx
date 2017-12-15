@@ -37,9 +37,14 @@ const iconButtonElement = (
     </IconButton>
   );
 
+//const getAvatar = (url, idx) => 
+
 const avatars = (urls) => 
     <div>
-    { urls.map((url,idx) => <Avatar style={{ marginLeft: -27 * idx }} src={url} />) }
+    { urls.map((url,idx) => <Avatar style={{ 
+        marginTop: 27 * idx,
+        marginLeft: -40 * idx
+    }} src={url} />) }
     </div>;
 
 const commaConcat = (tot, curr) => {

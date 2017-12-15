@@ -94,7 +94,6 @@ const NavBar = navBarFactory({
   path: '/group/:id/:part'
 });
 
-
 class App extends React.PureComponent {
   render() {
     return (

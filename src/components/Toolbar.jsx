@@ -1,6 +1,6 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import User from './../container/user';
+import User from './../container/User';
 
 const Toolbar = ({ title, openDrawer, goHome, isLoggedIn }) => (
     <AppBar 

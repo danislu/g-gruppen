@@ -39,8 +39,9 @@ export default ({ groups, uid, onSelect, id }) => {
     const renderGroups = (groups) => Object.entries(groups)
         .map(([id, value]) => ({ id, ...value }))
         .filter(({ inviteOnly, users = {}}) => {
+            return true;
             const keys = Object.keys(users)
-            return inviteOnly && keys.length > 0
+            return !inviteOnly || keys.length > 0
                 ? keys.some((key) => key === uid)
                 : true
         })
