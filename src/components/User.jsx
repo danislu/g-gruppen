@@ -8,7 +8,7 @@ const styles = {
     wrapper: {
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center'
+        justifyContent: 'space-around'
     }
 }
 
@@ -17,7 +17,7 @@ const Avatar = ({ displayName, avatarUrl }) => <div style={styles.wrapper}>
     <h4>{ displayName }</h4>
 </div>;
 
-const User = ({ isLoggedIn, profile, doLogOut }) => {
+const User = ({ isLoggedIn, profile, onClick }) => {
 
     if (!isLoggedIn) {
         return null;
@@ -27,7 +27,11 @@ const User = ({ isLoggedIn, profile, doLogOut }) => {
         return <CircularProgress color="black" />;
     }
     
-    return (<Avatar displayName={profile.displayName} avatarUrl={profile.avatarUrl} />);
+    return (
+        <div onClick={onClick}>
+            <Avatar displayName={profile.displayName} avatarUrl={profile.avatarUrl} />
+        </div>
+    );
 };
 
 export default User;

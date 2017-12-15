@@ -1,7 +1,7 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import { reactReduxFirebase, firebaseStateReducer, getFirebase } from 'react-redux-firebase';
 import createHistory from 'history/createBrowserHistory';
-import { routerReducer, routerMiddleware } from 'react-router-redux';
+import { routerReducer, routerMiddleware, syncHistoryWithStore } from 'react-router-redux';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
 import { reducer as formReducer } from 'redux-form'
 import { config as firebaseConfig } from './../firebaseconfig';
@@ -37,7 +37,7 @@ const createStoreWithFirebase = compose(
 // Add firebase to reducers
 const rootReducer = combineReducers({
     firebase: firebaseStateReducer,
-    router: routerReducer,
+    routing: routerReducer,
     form: formReducer,
     ...reducers
 });

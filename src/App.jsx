@@ -1,8 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux'
-import { Route, Router } from 'react-router'
-import BigCalendar from 'react-big-calendar';
+import { Route } from 'react-router'
+import { ConnectedRouter as Router } from 'react-router-redux'
 import moment from 'moment';
+import 'moment/locale/nb';
 
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -24,18 +25,7 @@ import { UserIsAuthenticated, UserIsNotAuthenticated } from './container/UserAut
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './App.css';
 
-BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
 moment.locale('nb');
-moment.updateLocale('nb', {
-  calendar : {
-      lastDay : '[Yesterday]',
-      sameDay : '[I dag]',
-      nextDay : '[I morgen]',
-      lastWeek : '[Forrige] dddd',
-      nextWeek : '[Neste] dddd',
-      sameElse : 'L'
-  }
-});
 
 const routes = [
   {

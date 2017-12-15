@@ -13,7 +13,6 @@ export default withRouterAndParamsAsProps(connect(
     ({ firebase }, { id, date, ...props }) => {
         const day = populatedDataToJS(firebase, `/groups/${id}/days/${getId(date)}`, populates);
         const walkers = day ? day.walkers : {};
-        console.log(walkers);
         return {
             date,
             ...day,

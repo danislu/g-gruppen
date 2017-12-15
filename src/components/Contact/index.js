@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { pathToJS, isLoaded, isEmpty } from 'react-redux-firebase';
 import { Settings as WrappedComponent } from './Settings';
-import { opertions } from './../../state/ducks/settings';
+import { opertions as settingsOps } from './../../state/ducks/settings';
+import { opertions as loginOps } from './../../state/ducks/login';
 
 const createInitialValues = (profile) => {
     if (!isLoaded(profile) || isEmpty(profile)){
@@ -25,6 +26,7 @@ export default connect(
         };        
     },
     (dispatch) => ({
-        onSubmit: (data) => dispatch(opertions.saveSettings(JSON.parse(JSON.stringify(data))))
+        onSubmit: (data) => dispatch(settingsOps.saveSettings(JSON.parse(JSON.stringify(data)))),
+        onLogout: () => dispatch(loginOps.logOut())
     })
 )(WrappedComponent);

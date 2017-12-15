@@ -40,7 +40,6 @@ export default ({ groups, uid, onSelect, id }) => {
         .map(([id, value]) => ({ id, ...value }))
         .filter(({ inviteOnly, users = {}}) => {
             const keys = Object.keys(users)
-            console.log(uid, keys);
             return inviteOnly && keys.length > 0
                 ? keys.some((key) => key === uid)
                 : true

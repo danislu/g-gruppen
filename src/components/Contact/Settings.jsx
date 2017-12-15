@@ -1,5 +1,5 @@
 import React from 'react';
-import { FloatingActionButton } from 'material-ui';
+import { FloatingActionButton, RaisedButton } from 'material-ui';
 import ContentSave from 'material-ui/svg-icons/content/save';
 import { Field, reduxForm } from 'redux-form';
 import { renderTextField } from './../../utils/form';
@@ -22,7 +22,7 @@ const fabStyle = {
     margin: 20
 };
   
-const Component = ({ handleSubmit }) => (<div style={wrapper}>
+const Component = ({ handleSubmit, onLogout }) => (<div style={wrapper}>
     <form onSubmit={ handleSubmit }>
         <div style={form}>
         <h2>Kontaktinfo</h2>
@@ -31,6 +31,8 @@ const Component = ({ handleSubmit }) => (<div style={wrapper}>
         <Field name="phone" component={renderTextField} label="Telefon" type="tel" />
 
         <Field name="child" component={renderTextField} label="Barnets navn" type="text" />
+
+        <RaisedButton onClick={onLogout}>Logout</RaisedButton>
         <FloatingActionButton type="submit" style={fabStyle}>
             <ContentSave />
         </FloatingActionButton>
