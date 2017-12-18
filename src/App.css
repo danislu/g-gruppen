@@ -48,6 +48,8 @@ body
   position: relative;
   overflow-y: scroll;
   background-color: lightgrey;
+  /* padding-left: 1em; */
+  /* padding-right: 1em; */
 }
 
 .footer {

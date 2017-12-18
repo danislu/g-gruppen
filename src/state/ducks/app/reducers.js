@@ -7,6 +7,11 @@ const drawerOpen = createReducer(true, {
     [types.closeDrawer]: () => false,
 });
 
+const selectedGroup = createReducer('', {
+    [types.selectGroup]: (state, { payload }) => payload
+})
+
 export default combineReducers({
-    drawerOpen    
+    drawerOpen,
+    selectedGroup
 });

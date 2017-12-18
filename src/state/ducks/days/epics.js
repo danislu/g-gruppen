@@ -41,9 +41,9 @@ const createGroupEpic = (action$, store, { getFirebase }) => action$
             users: { 
                 [creator]: true 
             }
-        })
+        }).then(({ key }) => getFirebase().set(`groups/${key}/key`, key));
     })
-    .mapTo({ type: 'group/create/done'});
+    .mapTo({ type: 'group/create/done' });
 
 const selectGroup = (action$, store, { history }) => action$
     .ofType('days/group')

@@ -2,8 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux'
 import { Route } from 'react-router'
 import { ConnectedRouter as Router } from 'react-router-redux'
-import moment from 'moment';
-import 'moment/locale/nb';
+import './utils/momentsetup';
 
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -17,15 +16,13 @@ import Info from './container/GroupInfo';
 import Toolbar from './container/Toolbar';
 import Login from './container/Login';
 import Contact from './components/Contact';
-import navBarFactory from './components/Navbar';
-import Drawer from './container/Drawer';
+import Drawer from './components/Drawer';
+import Invite from './components/Invite';
 
 import { UserIsAuthenticated, UserIsNotAuthenticated } from './container/UserAuthenticated';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './App.css';
-
-moment.locale('nb');
 
 const routes = [
   {
@@ -59,7 +56,7 @@ const routes = [
     onlyAuthenticated: true
   },
   {
-    path: "/group/:id/info",
+    path: "/group/:id",
     exact: true,
     component: Info,
     onlyAuthenticated: true
@@ -75,6 +72,11 @@ const routes = [
     exact: true,
     component: () => <h1>hoi</h1>,
     onlyAuthenticated: true
+  },
+  {
+    path: "/invite/:id",
+    exact: true,
+    component: Invite
   }
 ];
 
@@ -89,10 +91,6 @@ const getRoute = (route, idx) => {
 
   return <Route key={`${idx}-${path}`} exact={exact || false} path={path} component={component} />;
 };
-
-const NavBar = navBarFactory({
-  path: '/group/:id/:part'
-});
 
 class App extends React.PureComponent {
   render() {
