@@ -3,17 +3,21 @@ import { connect } from 'react-redux';
 import { firebaseConnect, populatedDataToJS } from 'react-redux-firebase';
 import { operations } from '../state/ducks/days/index';
 import withRouterAndParamsAsProps from './withRouterAndParamsAsProps';
+import pureify from './pureify';
 
-export default withRouterAndParamsAsProps(connect(
-    ({ days, firebase }, { id }) => {
-        const groups = populatedDataToJS(firebase, `/groups`, [{ child: 'users', root: 'users' }, { child: 'creator', root: 'users' }]) || {};
-        return {
-            group: groups[id]
-        };
-    },
-    (dispatch, { id }) => ({
-        onAdd: (day) => dispatch(operations.registerWalker({ id, day })),
-        onRemove: (day) => dispatch(operations.deregisterWalker({ id , day })),
-        onChangeFree: () => dispatch({ type: 'whatever'})
-    })
-)(firebaseConnect([ '/groups', 'auth', 'users' ])(GroupInfo)));
+const populates = [
+    { child: 'users', root: 'users' },
+    { child: 'creator', root: 'users' }
+];
+
+export default pureify(
+    firebaseConnect([ '/groups', 'users' ]),
+    connect(
+        ({ app, firebase }) => {
+            const { selectedGroup } = app;
+            return {
+                group: populatedDataToJS(firebase, `/groups/${selectedGroup}`, populates)
+            };
+        }
+    )
+)(GroupInfo);

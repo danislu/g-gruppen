@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
-import UserAvatar from 'react-user-avatar';
-import { CircularProgress, Divider } from 'material-ui';
+import { CircularProgress, Divider, ListItem, Avatar, MenuItem } from 'material-ui';
 
 const styles = {
     wrapper: {
@@ -19,10 +18,14 @@ const getInner = (profile) => {
     }
     
     const { displayName, avatarUrl } = profile;
-    return (<Link to={'/contact'} style={styles.wrapper}>
-        <UserAvatar size={48} name={displayName} src={avatarUrl} />
-        <h3 style={{ marginLeft: 15 }}>{ displayName }</h3>
-    </Link>);
+    return (
+        <Link to={'/contact'}>
+            <MenuItem
+                primaryText={displayName}
+                leftIcon={<Avatar src={avatarUrl} />}
+            />
+        </Link>
+    );
 };
 
 const User = ({ isLoggedIn, profile, onClick }) => {
@@ -31,9 +34,7 @@ const User = ({ isLoggedIn, profile, onClick }) => {
         return null;
     }
     
-    return (<div style={styles.wrapper}>
-        { getInner(profile) }
-    </div>);
+    return getInner(profile);
 };
 
 export default User;

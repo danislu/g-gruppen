@@ -7,6 +7,7 @@ import withCurrentGroup from './withCurrentGroup';
 import pureify from './pureify';
 
 export default pureify(
+    withCurrentGroup,
     connect(
         ({ firebase }, { currentGroup }) => {
             const group = currentGroup;
@@ -18,9 +19,7 @@ export default pureify(
         },
         (dispatch) => ({ 
             openDrawer: () => dispatch(operations.openDrawer()),
-            goHome: () => {
-                dispatch({ type: 'app/goHome' });
-            }
+            goHome: () => dispatch(operations.goHome1())
         })
     )
 )(Toolbar);

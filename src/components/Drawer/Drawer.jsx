@@ -34,8 +34,8 @@ export default ({ isOpen, currentGroup, drawerChange }) => <Drawer
             </div>
             <div style={styles.content}>
                 <Content />
-            </div>
-            <div style={styles.footer}>
+            {/* </div>
+            <div style={styles.footer}> */}
                 <Divider />
                 <User />
             </div>

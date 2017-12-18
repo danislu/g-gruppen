@@ -3,6 +3,7 @@ import { LOCATION_CHANGE, push } from 'react-router-redux';
 import { closeDrawer, types, selectGroup } from './actions';
 import 'rxjs';
 import { dataToJS } from 'react-redux-firebase';
+import { operations } from './index';
 
 const noSelectedGroup = (store) => {
     const selectedGroup = store.getState().app.selectedGroup;
@@ -22,13 +23,12 @@ const needSelectedGroupEpic = (action$, store) => action$
 
 const gotoSelectedGroupEpic = action$ => action$
     .ofType(types.selectGroup)
-    .map(({ payload }) => payload === '' ? '' : `group/${payload}`)
-    .map(path => push(path));
+    .mapTo(operations.goHome1());
 
 const goHomeEpic = (action$, store) => action$
     .ofType(types.goHome)
     .map(() => !noSelectedGroup(store))
-    .map(isSelected => isSelected ? '/group/walker' : '')
+    .map(isSelected => isSelected ? '/group' : '')
     .map(path => push(path));
 
 const joinGroupEpic = (action$, store, { getFirebase }) => action$

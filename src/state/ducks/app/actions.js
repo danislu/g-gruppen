@@ -12,4 +12,4 @@ export const closeDrawer = () => ({ type: types.closeDrawer });
 export const selectGroup = (payload) => ({ type: types.selectGroup, payload });
 export const clearSelectedGroup = () => selectGroup('');
 export const joinGroup = (payload) => ({ type: types.joinGroup, payload });
-export const goHome = () => ({ type: types.goHome });
+export const goHome1 = () => ({ type: types.goHome });

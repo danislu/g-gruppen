@@ -49,7 +49,7 @@ const renderWeek = ({ date, days = {}, weekdays, ...props }) => {
 
     const week = toWeek(weekdays)
     return (<List style={styles.list}>
-        { 
+        {
             [0,1,2,3,4,5,6]
                 .map((i) => moment(monday).add(i, 'days').toDate())
                 //.filter(d => !isInPast(d))
