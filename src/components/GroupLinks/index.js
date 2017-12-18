@@ -4,7 +4,7 @@ import GroupLinks from './GroupLinks';
 import { operations } from '../../state/ducks/app';
 import withCurrentGroup from '../../container/withCurrentGroup';
 
-const clickHandlerFactoryFactory = (pusher, id) => type => () => pusher(`/group/${id}/${type}`);
+const clickHandlerFactoryFactory = pusher => type => () => pusher(`/group/${type}`);
 
 export default withCurrentGroup(connect(
   ({ app }, { currentGroup }) => ({
@@ -17,7 +17,7 @@ export default withCurrentGroup(connect(
     doNew: () => dispatch(push('/create'))
    }),
   (stateProps, dispProps, ownProps) => {
-    const createHandler = clickHandlerFactoryFactory(dispProps.push, stateProps.id);
+    const createHandler = clickHandlerFactoryFactory(dispProps.push);
     return Object.assign(
       {},
       ownProps,
@@ -26,7 +26,7 @@ export default withCurrentGroup(connect(
       ({
         doWalkerClick: createHandler('walker'),
         doKidClick: createHandler('kid'),
-        doInfoClick: createHandler('info')
+        doInfoClick: createHandler('')
       })
     );
   }

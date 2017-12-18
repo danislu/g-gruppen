@@ -16,7 +16,7 @@ const DrawerContent = ({ currentGroup, doWalkerClick, doKidClick, doInfoClick, c
 
         return (<div>
             <MenuItem primaryText="Følgere" leftIcon={<WalkIcon />} onClick={doWalkerClick} />
-            <MenuItem primaryText="Deltagere" leftIcon={<ChildIcon />} onClick={doKidClick} />
+            <MenuItem disabled={true} primaryText="Deltagere" leftIcon={<ChildIcon />} onClick={doKidClick} />
             <MenuItem primaryText="Info" leftIcon={<InfoIcon />} onClick={doInfoClick} />
             <Divider />
             <MenuItem primaryText="Tilbake" leftIcon={<BackIcon />} onClick={closeGroup} />
@@ -25,7 +25,7 @@ const DrawerContent = ({ currentGroup, doWalkerClick, doKidClick, doInfoClick, c
 
     return (<div>
         { currentGroupLinks(currentGroup) }
-        <MenuItem primaryText="Ny gågruppe" leftIcon={<NewIcon />} onClick={doNew} />
+        <MenuItem disabled={true} primaryText="Ny gågruppe" leftIcon={<NewIcon />} onClick={doNew} />
     </div>);
 };
 

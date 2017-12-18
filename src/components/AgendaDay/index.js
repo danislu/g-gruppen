@@ -9,20 +9,23 @@ const populates = [
     { child: 'walkers', root: 'users' }
 ];
 
-export default withRouterAndParamsAsProps(connect(
-    ({ firebase }, { id, date, ...props }) => {
-        const day = populatedDataToJS(firebase, `/groups/${id}/days/${getId(date)}`, populates);
+export default connect(
+    ({ app, firebase }, { date, ...props }) => {
+        const { selectedGroup } = app;
+        const day = populatedDataToJS(firebase, `/groups/${selectedGroup}/days/${getId(date)}`, populates);
         const walkers = day ? day.walkers : {};
         return {
+            selectedGroup,
             date,
             ...day,
             walkers: Object.values(walkers || {}),
             ...props
         };
     },
-    (dispatch, { id }) => ({
-        onAdd: (day) => dispatch(operations.registerWalker({ id, day })),
-        onRemove: (day) => dispatch(operations.deregisterWalker({ id , day })),
+    (dispatch) => ({ dispatch }),
+    (stateProps, { dispatch }, ownProps) => Object.assign({}, ownProps, stateProps, {
+        onAdd: (day) => dispatch(operations.registerWalker({ id: stateProps.selectedGroup, day })),
+        onRemove: (day) => dispatch(operations.deregisterWalker({ id: stateProps.selectedGroup , day })),
         onChangeFree: () => dispatch({ type: 'whatever'})
     })
-)(firebaseConnect([ '/groups', 'users' ])(AgendaDay)));
+)(firebaseConnect([ '/groups', 'users' ])(AgendaDay));

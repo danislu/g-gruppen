@@ -13,6 +13,7 @@ import Select from './container/GroupSelect';
 import Create from './container/Create';
 import Group from './container/Group';
 import Info from './container/GroupInfo';
+import Walkers from './components/Walkers';
 import Toolbar from './container/Toolbar';
 import Login from './container/Login';
 import Contact from './components/Contact';
@@ -50,19 +51,19 @@ const routes = [
     onlyAuthenticated: true
   },
   {
-    path: "/group/:id/walker",
+    path: "/group/walker",
+    exact: true,
+    component: Walkers,
+    onlyAuthenticated: true
+  },
+  {
+    path: "/group",
     exact: true,
     component: Info,
     onlyAuthenticated: true
   },
   {
-    path: "/group/:id",
-    exact: true,
-    component: Info,
-    onlyAuthenticated: true
-  },
-  {
-    path: "/group/:id/kid",
+    path: "/group/kid",
     exact: true,
     component: Group,
     onlyAuthenticated: true
@@ -76,7 +77,8 @@ const routes = [
   {
     path: "/invite/:id",
     exact: true,
-    component: Invite
+    component: Invite,
+    onlyAuthenticated: true
   }
 ];
 

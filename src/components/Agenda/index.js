@@ -4,16 +4,19 @@ import { firebaseConnect, populatedDataToJS } from 'react-redux-firebase';
 import { operations } from './../../state/ducks/days';
 import withRouterAndParamsAsProps from './../../container/withRouterAndParamsAsProps';
 
-export default withRouterAndParamsAsProps(connect(
-    ({ firebase }, { id }) => {
-        const group = populatedDataToJS(firebase, `/groups/${id}`) || {};
+export default connect(
+    ({ app, firebase }) => {
+        const { selectedGroup } = app;
+        const group = populatedDataToJS(firebase, `/groups/${selectedGroup}`) || {};
         return {
-            group
+            group,
+            id: selectedGroup
         };
     },
-    (dispatch, { id }) => ({
-        onAdd: (day) => dispatch(operations.registerWalker({ id, day })),
-        onRemove: (day) => dispatch(operations.deregisterWalker({ id , day })),
+    (dispatch) => ({ dispatch }),
+    (stateProps, { dispatch }, ownProps) => Object.assign({}, ownProps, stateProps, {
+        onAdd: (day) => dispatch(operations.registerWalker({ id: stateProps.id, day })),
+        onRemove: (day) => dispatch(operations.deregisterWalker({ id: stateProps.id , day })),
         onChangeFree: () => dispatch({ type: 'whatever'})
     })
-)(firebaseConnect([ '/groups' ])(Agenda)));
+)(firebaseConnect([ '/groups' ])(Agenda));

@@ -4,14 +4,31 @@ import { closeDrawer, types, selectGroup } from './actions';
 import 'rxjs';
 import { dataToJS } from 'react-redux-firebase';
 
+const noSelectedGroup = (store) => {
+    const selectedGroup = store.getState().app.selectedGroup;
+    return !selectedGroup || selectedGroup === '';
+};
+
 const closeDrawarOnLocationChangeEpic = (action$, store) => action$
     .ofType(LOCATION_CHANGE)
     .filter(() => store.getState().app.drawerOpen)
     .mapTo(closeDrawer());
 
-const gotoSelectedGroupEpic = (action$, store, { getFirebase }) => action$
+const needSelectedGroupEpic = (action$, store) => action$
+    .ofType(LOCATION_CHANGE)
+    .filter(({ payload }) => payload.pathname.indexOf('/group') !== -1)
+    .filter(() => noSelectedGroup(store))
+    .mapTo(push(''));
+
+const gotoSelectedGroupEpic = action$ => action$
     .ofType(types.selectGroup)
     .map(({ payload }) => payload === '' ? '' : `group/${payload}`)
+    .map(path => push(path));
+
+const goHomeEpic = (action$, store) => action$
+    .ofType(types.goHome)
+    .map(() => !noSelectedGroup(store))
+    .map(isSelected => isSelected ? '/group/walker' : '')
     .map(path => push(path));
 
 const joinGroupEpic = (action$, store, { getFirebase }) => action$
@@ -32,5 +49,7 @@ const joinGroupEpic = (action$, store, { getFirebase }) => action$
 export const rootEpic = combineEpics(
     closeDrawarOnLocationChangeEpic,
     gotoSelectedGroupEpic,
-    joinGroupEpic
+    joinGroupEpic,
+    needSelectedGroupEpic,
+    goHomeEpic
 );
