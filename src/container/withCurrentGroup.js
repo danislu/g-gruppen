@@ -5,8 +5,8 @@ import { firebaseConnect, dataToJS } from 'react-redux-firebase';
 
 const withCurrentGroup = (Component) => {
     const C = connect(
-      ({ firebase, app }) => ({
-        currentGroup: dataToJS(firebase, `/groups/${app.selectedGroup}`)
+      ({ firebase }, ownProps) => ({
+        currentGroup: dataToJS(firebase, `/groups/${ownProps.id}`),
       })
     )(firebaseConnect([ '/groups' ])(Component));
 

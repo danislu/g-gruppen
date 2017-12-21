@@ -51,19 +51,19 @@ const routes = [
     onlyAuthenticated: true
   },
   {
-    path: "/group/walker",
+    path: "/group/:id",
     exact: true,
     component: Walkers,
     onlyAuthenticated: true
   },
+  // {
+  //   path: "/group/:id",
+  //   exact: true,
+  //   component: Info,
+  //   onlyAuthenticated: true
+  // },
   {
-    path: "/group",
-    exact: true,
-    component: Info,
-    onlyAuthenticated: true
-  },
-  {
-    path: "/group/kid",
+    path: "/group/:id/kid",
     exact: true,
     component: Group,
     onlyAuthenticated: true

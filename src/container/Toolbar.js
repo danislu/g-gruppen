@@ -5,8 +5,10 @@ import { operations } from './../state/ducks/app';
 import { pathToJS, dataToJS, firebaseConnect, populatedDataToJS } from 'react-redux-firebase';
 import withCurrentGroup from './withCurrentGroup';
 import pureify from './pureify';
+import withRouterAndParamsAsProps from './withRouterAndParamsAsProps';
 
 export default pureify(
+    withRouterAndParamsAsProps,
     withCurrentGroup,
     connect(
         ({ firebase }, { currentGroup }) => {

@@ -4,16 +4,20 @@ import GroupLinks from './GroupLinks';
 import { operations } from '../../state/ducks/app';
 import withCurrentGroup from '../../container/withCurrentGroup';
 import pureify from '../../container/pureify';
+import withRouterAndParamsAsProps from '../../container/withRouterAndParamsAsProps';
+import { firebaseConnect, dataToJS } from 'react-redux-firebase';
 
-const clickHandlerFactoryFactory = pusher => type => () => pusher(`/group/${type}`);
+const clickHandlerFactoryFactory = pusher => id => type => () => pusher(`/group/${id}/${type}`);
 
 export default pureify(
-  withCurrentGroup,
+  firebaseConnect([ '/groups' ]),
+  withRouterAndParamsAsProps,
   connect(
-    ({ app }, { currentGroup }) => ({
-      id: app.selectedGroup,
-      currentGroup
-    }),
+    ({ firebase }, { id }) => {
+      return ({
+        currentGroup: dataToJS(firebase, `/groups/${id}`)
+      });
+    },
     (dispatch) => ({
       push: (path) => dispatch(push(path)),
       closeGroup: () => dispatch(operations.clearSelectedGroup()),
@@ -21,7 +25,7 @@ export default pureify(
       goHome: () => dispatch(operations.goHome1())
     }),
     (stateProps, dispProps, ownProps) => {
-      const createHandler = clickHandlerFactoryFactory(dispProps.push);
+      const createHandler = clickHandlerFactoryFactory(dispProps.push)(ownProps.id);
       return Object.assign(
         {},
         ownProps,

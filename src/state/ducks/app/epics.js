@@ -28,7 +28,7 @@ const gotoSelectedGroupEpic = action$ => action$
 const goHomeEpic = (action$, store) => action$
     .ofType(types.goHome)
     .map(() => !noSelectedGroup(store))
-    .map(isSelected => isSelected ? '/group' : '')
+    .map(isSelected => isSelected ? `/group/${store.getState().app.selectedGroup}` : '')
     .map(path => push(path));
 
 const joinGroupEpic = (action$, store, { getFirebase }) => action$
@@ -50,6 +50,6 @@ export const rootEpic = combineEpics(
     closeDrawarOnLocationChangeEpic,
     gotoSelectedGroupEpic,
     joinGroupEpic,
-    needSelectedGroupEpic,
+//    needSelectedGroupEpic,
     goHomeEpic
 );

@@ -8,13 +8,14 @@ import withRouterAndParamsAsProps from './../../container/withRouterAndParamsAsP
 import pureify from '../../container/pureify';
 
 export default pureify(
+  withRouterAndParamsAsProps,
   firebaseConnect([ '/groups', 'auth', 'users' ]),
   connect(
-    ({ app, days, firebase }) => {
+    ({ app, days, firebase }, { id }) => {
         const { selectedGroup } = app;
         const groups = populatedDataToJS(firebase, `/groups`, [{ child: 'users', root: 'users' }, { child: 'creator', root: 'users' }]) || {};
         return {
-            group: groups[selectedGroup]
+            group: groups[id]
         };
     },
     (dispatch, { id }) => ({
