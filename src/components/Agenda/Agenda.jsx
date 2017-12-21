@@ -54,7 +54,7 @@ const renderWeek = ({ date, days = {}, weekdays, ...props }) => {
                 .map((i) => moment(monday).add(i, 'days').toDate())
                 //.filter(d => !isInPast(d))
                 //.filter(d => week[d.getDay()])
-                .map((d) => <AgendaDay date={d} disabled={!week[d.getDay()]} />)
+                .map((d) => <AgendaDay key={d} date={d} disabled={!week[d.getDay()]} />)
         }
     </List>);
 };

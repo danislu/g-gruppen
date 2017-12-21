@@ -41,7 +41,7 @@ const iconButtonElement = (
 
 const avatars = (urls) => 
     <div>
-    { urls.map((url,idx) => <Avatar style={{ 
+    { urls.map((url,idx) => <Avatar key={idx} style={{ 
         marginTop: 27 * idx,
         marginLeft: -40 * idx
     }} src={url} />) }
@@ -89,8 +89,8 @@ const renderDay = ({ walkers, date, free, disabled, onAdd, onRemove, onChangeFre
         return renderDisabledDay(date);
     }
 
-    return <Paper zDepth={1} style={{ marginBottom: 2 }}>
-        <ListItem key={`${date}`}
+    return <Paper key={`${date}`} zDepth={1} style={{ marginBottom: 2 }}>
+        <ListItem
             rightIconButton={ !isInPast(date) ? rightIconMenu : null }
             leftAvatar={ avatars(walkers.map(w => w.avatarUrl)) }
             primaryText={ walkers.map(w => w.displayName).reduce(commaConcat, '') }    

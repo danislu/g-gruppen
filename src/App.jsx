@@ -14,7 +14,7 @@ import Create from './container/Create';
 import Group from './container/Group';
 import Info from './container/GroupInfo';
 import Walkers from './components/Walkers';
-import Toolbar from './container/Toolbar';
+import Toolbar from './components/Toolbar';
 import Login from './container/Login';
 import Contact from './components/Contact';
 import Drawer from './components/Drawer';
