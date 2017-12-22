@@ -5,6 +5,7 @@ import { operations } from './../../state/ducks/days';
 import withRouterAndParamsAsProps from './../../container/withRouterAndParamsAsProps';
 import { getId } from './../../utils/dates';
 import pureify from '../../container/pureify';
+import { compose } from 'recompose';
 
 const populates = [
     { child: 'walkers', root: 'users' }
@@ -12,7 +13,6 @@ const populates = [
 
 export default pureify(
     withRouterAndParamsAsProps,
-    firebaseConnect([ '/groups', 'users' ]),
     connect(
         ({ app, firebase }, { date, id, ...props }) => {
             const day = populatedDataToJS(firebase, `/groups/${id}/days/${getId(date)}`, populates);

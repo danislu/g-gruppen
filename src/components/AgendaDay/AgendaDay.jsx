@@ -41,9 +41,11 @@ const iconButtonElement = (
 
 const avatars = (urls) => 
     <div>
-    { urls.map((url,idx) => <Avatar key={idx} style={{ 
-        marginTop: 27 * idx,
-        marginLeft: -40 * idx
+    { urls.map((url, idx) => <Avatar key={idx} style={{ 
+        marginTop: 20 * idx,
+        float: 'left',
+        display: 'inline',
+        marginLeft: -40 * idx,
     }} src={url} />) }
     </div>;
 

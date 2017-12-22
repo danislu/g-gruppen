@@ -5,7 +5,7 @@ import InfoIcon from 'material-ui/svg-icons/action/info';
 import BackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import { MenuItem, Menu, Divider } from 'material-ui';
 
-const DrawerContent = ({ doWalkerClick, doKidClick, doInfoClick, goHome }) => {
+const DrawerContent = ({ doWalkerClick, doKidClick, doInfoClick }) => {
     return (<div>
         <MenuItem primaryText="Info" leftIcon={<InfoIcon />} onClick={doInfoClick} />
         <MenuItem primaryText="Følgere" leftIcon={<WalkIcon />} onClick={doWalkerClick} />

@@ -4,10 +4,11 @@ import { firebaseConnect, populatedDataToJS } from 'react-redux-firebase';
 import { operations } from './../../state/ducks/days';
 import withRouterAndParamsAsProps from './../../container/withRouterAndParamsAsProps';
 import pureify from '../../container/pureify';
+import { compose } from 'recompose';
 
 export default pureify(
+    //firebaseConnect([ '/groups' ]), 
     withRouterAndParamsAsProps,
-    firebaseConnect([ '/groups' ]), 
     connect(
         ({ app, firebase }, { id }) => ({
             group: populatedDataToJS(firebase, `/groups/${id}`) || {},
