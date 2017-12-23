@@ -5,7 +5,6 @@ import { operations } from './../state/ducks/app';
 import pureify from './pureify';
 
 export default pureify(
-    firebaseConnect([ '/groups', 'auth' ]),
     connect(
         ({ firebase }) => {
             const groups = dataToJS(firebase, '/groups');
@@ -18,5 +17,6 @@ export default pureify(
         (dispatch) => ({
             onSelect: (id) => dispatch(operations.selectGroup(id))
         })
-    )
+    ),
+    firebaseConnect([ '/groups', 'auth' ])
 )(GroupSelect);

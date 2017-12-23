@@ -15,10 +15,6 @@ const styles = {
     },
     list: {
         minWidth: '100%'
-        //display: 'flex',
-        //flexDirection: 'column',
-        //alignItems: 'strech',
-        //justifyContent: 'center'
     },
     buttons: {
         display: 'flex',

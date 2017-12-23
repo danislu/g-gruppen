@@ -37,8 +37,6 @@ const iconButtonElement = (
     </IconButton>
   );
 
-//const getAvatar = (url, idx) => 
-
 const avatars = (urls) => 
     <div>
     { urls.map((url, idx) => <Avatar key={idx} style={{ 
@@ -70,7 +68,13 @@ const renderWalker = ({ displayName = "...", avatarUrl, email, phone, child }, i
         secondaryTextLines={2}
   />);
 
-const renderDisabledDay = (date) => <Paper zDepth={1} style={{ marginBottom: 2 }}>
+const getStyle = (date) => ({
+    marginBottom: 2,
+    opacity: isInPast(date) ? 0.3 : 1,
+    backgroundColor: date.toDateString() == new Date().toDateString() ? 'lightgreen' : 'white'
+});
+
+const renderDisabledDay = (date) => <Paper zDepth={1} style={getStyle(date)}>
     <ListItem key={`${date}`} disabled={true}
         primaryText={<div style={styles.wrapper}>
             {moment(date).format('dddd LL')}<br />
@@ -79,23 +83,21 @@ const renderDisabledDay = (date) => <Paper zDepth={1} style={{ marginBottom: 2 }
     />
 </Paper>;
 
-const renderDay = ({ walkers, date, free, disabled, onAdd, onRemove, onChangeFree }) => {
+const renderEnabledDay = ({ walkers, date, free, onAdd, onRemove, onChangeFree }) => {
     const rightIconMenu = (
         <IconMenu iconButtonElement={iconButtonElement}>
             <MenuItem onClick={() => onAdd(date)}>Gå</MenuItem>
             <MenuItem onClick={() => onRemove(date)}>Ikke gå</MenuItem>
         </IconMenu>
     );
+    
+    const style = getStyle(date);
 
-    if (disabled){
-        return renderDisabledDay(date);
-    }
-
-    return <Paper key={`${date}`} zDepth={1} style={{ marginBottom: 2 }}>
+    return <Paper key={`${date}`} zDepth={1} style={style}>
         <ListItem
             rightIconButton={ !isInPast(date) ? rightIconMenu : null }
             leftAvatar={ avatars(walkers.map(w => w.avatarUrl)) }
-            primaryText={ walkers.map(w => w.displayName).reduce(commaConcat, '') }    
+            primaryText={ walkers.map(w => w.displayName).reduce(commaConcat, '') }
             secondaryText={<div style={styles.wrapper}>
                 { moment(date).calendar() }
                 <br />
@@ -104,6 +106,15 @@ const renderDay = ({ walkers, date, free, disabled, onAdd, onRemove, onChangeFre
             secondaryTextLines={2}
         />
     </Paper>;
+};
+
+const renderDay = (props) => {
+    const { disabled, date } = props;
+    if (disabled){
+        return renderDisabledDay(date);
+    }
+
+    return renderEnabledDay(props);
 };
 
 export default renderDay;
