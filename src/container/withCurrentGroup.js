@@ -1,14 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import hoistStatics from 'hoist-non-react-statics';
-import { firebaseConnect, dataToJS } from 'react-redux-firebase';
+import { firebaseConnect } from 'react-redux-firebase';
+import { compose } from 'recompose';
 
 const withCurrentGroup = (Component) => {
-    const C = connect(
-      ({ firebase }, ownProps) => ({
-        currentGroup: dataToJS(firebase, `/groups/${ownProps.id}`),
-      })
-    )(firebaseConnect([ '/groups' ])(Component));
+    const C = compose(
+      // firebaseConnect([ 'groups' ]),
+      connect(
+        ({ firebase: { data: { groups }} }, ownProps) => ({
+          currentGroup: groups[ownProps.id],
+        })
+      ),
+    )(Component);
 
     C.WrappedComponent = Component;
 

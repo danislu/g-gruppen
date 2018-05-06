@@ -2,25 +2,28 @@ import Walkers from './Walkers';
 import { compose } from 'redux';
 import { pure } from 'recompose';
 import { connect } from 'react-redux';
-import { firebaseConnect, populatedDataToJS } from 'react-redux-firebase';
+import { firebaseConnect, populatedDataToJS, firebase } from 'react-redux-firebase';
 import { operations } from './../../state/ducks/days/index';
 import withRouterAndParamsAsProps from './../../container/withRouterAndParamsAsProps';
 import pureify from '../../container/pureify';
 
+const populates = [
+    { child: 'users', root: 'users' },
+    { child: 'creator', root: 'users' },
+    { child: 'walkers', root: 'users' },
+];
+
 export default pureify(
-  withRouterAndParamsAsProps,
-  firebaseConnect([ '/groups', 'auth', 'users' ]),
-  connect(
-    ({ app, days, firebase }, { id }) => {
-        const { selectedGroup } = app;
-        const groups = populatedDataToJS(firebase, `/groups`, [{ child: 'users', root: 'users' }, { child: 'creator', root: 'users' }]) || {};
-        return {
-            group: groups[id]
-        };
-    },
-    (dispatch, { id }) => ({
-        onAdd: (day) => dispatch(operations.registerWalker({ id, day })),
-        onRemove: (day) => dispatch(operations.deregisterWalker({ id , day })),
-        onChangeFree: () => dispatch({ type: 'whatever'})
-    }))
+    // firebaseConnect([{ path: 'groups', populates }]),
+    withRouterAndParamsAsProps,
+    connect(
+        ({ firebase: { data: { groups }} }, { id }) => ({
+            group: groups ? groups[id] : null
+        }),
+        (dispatch, { id }) => ({
+            onAdd: (day) => dispatch(operations.registerWalker({ id, day })),
+            onRemove: (day) => dispatch(operations.deregisterWalker({ id , day })),
+            onChangeFree: () => dispatch({ type: 'whatever'})
+        })
+    )
 )(Walkers);

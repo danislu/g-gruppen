@@ -19,12 +19,9 @@ const createInitialValues = (profile) => {
 };
 
 export default connect(
-    ({ firebase }) => {
-        const profile = pathToJS(firebase, 'profile');    
-        return {
-            initialValues: createInitialValues(profile)
-        };        
-    },
+    ({ firebase: { profile } }) => ({
+        initialValues: createInitialValues(profile)  
+    }),
     (dispatch) => ({
         onSubmit: (data) => dispatch(settingsOps.saveSettings(JSON.parse(JSON.stringify(data)))),
         onLogout: () => dispatch(loginOps.logOut())

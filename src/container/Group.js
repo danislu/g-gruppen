@@ -3,13 +3,20 @@ import { connect } from 'react-redux';
 import { firebaseConnect, populatedDataToJS } from 'react-redux-firebase';
 //import { operations } from '../state/ducks/days/index';
 import withRouterAndParamsAsProps from './withRouterAndParamsAsProps';
+import { compose } from 'redux';
 
-export default withRouterAndParamsAsProps(connect(
-    ({ firebase }, { id }) => {
-        const group = populatedDataToJS(firebase, `/groups/${id}`, [{ child: 'users', root: 'users' }, { child: 'creator', root: 'users' }]) || {};
-        return {
-            group
-        };
-    },
-    (dispatch, { id }) => ({})
-)(firebaseConnect([ '/groups' ])(Group)));
+const populates = [{ child: 'users', root: 'users' }, { child: 'creator', root: 'users' }];
+
+export default compose(
+    // firebaseConnect([ 'groups' ]),
+    withRouterAndParamsAsProps,
+    connect(
+        ({ firebase: { data: { groups }} }, { id }) => {
+            const group = groups ? groups[id] : {};
+            return {
+                group
+            };
+        },
+        (dispatch, { id }) => ({})
+    )
+)(Group);

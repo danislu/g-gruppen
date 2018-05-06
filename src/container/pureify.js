@@ -3,5 +3,5 @@ import { pure } from 'recompose';
 
 export default (...parts) => compose(
   ...parts,
-  pure
+  // pure
 );

@@ -1,1 +1,4 @@
-export const createActionCreator = (prefix) => (type) => (payload) => ({ type: `${prefix}/${type}`, payload });
+export const createActionCreator = prefix => type => payload => ({
+  type: `${prefix}/${type}`,
+  payload
+});

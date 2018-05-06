@@ -1,19 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { pathToJS, isLoaded, isEmpty } from 'react-redux-firebase';
 import { push } from 'react-router-redux';
 import User from './../components/User';
+import { compose } from 'recompose';
 
-export default connect(
-    ({ firebase }) => {
-        const auth = pathToJS(firebase, 'auth');
-        const profile = pathToJS(firebase, 'profile');
-        return {
+export default compose(
+    connect(
+        ({ firebase: { auth, profile }}) => ({
             isLoggedIn: (auth && auth.uid),
             profile
-        };
-    }, 
-    (dispatch) => ({
-        click: () => dispatch(push('/contact'))
-    })
+        }), 
+        (dispatch) => ({
+            click: () => dispatch(push('/contact'))
+        })
+    )
 )(User);

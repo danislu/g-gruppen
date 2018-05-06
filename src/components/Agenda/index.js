@@ -7,11 +7,11 @@ import pureify from '../../container/pureify';
 import { compose } from 'recompose';
 
 export default pureify(
-    //firebaseConnect([ '/groups' ]), 
+    // firebaseConnect([ 'groups' ]),
     withRouterAndParamsAsProps,
     connect(
-        ({ app, firebase }, { id }) => ({
-            group: populatedDataToJS(firebase, `/groups/${id}`) || {},
+        ({ app, firebase: { data: { groups }} }, { id }) => ({
+            group: groups ? groups[id] : {},
             id
         }),
         (dispatch) => ({ dispatch }),

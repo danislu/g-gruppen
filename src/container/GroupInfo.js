@@ -11,12 +11,12 @@ const populates = [
 ];
 
 export default pureify(
-    firebaseConnect([ '/groups', 'users' ]),
+    // firebaseConnect([{ path: 'groups', populates }]),
     connect(
-        ({ app, firebase }) => {
+        ({ app, firebase: { data: { groups }}}) => {
             const { selectedGroup } = app;
             return {
-                group: populatedDataToJS(firebase, `/groups/${selectedGroup}`, populates)
+                group: groups ? groups[selectedGroup] : null
             };
         }
     )

@@ -5,8 +5,6 @@ import { firebaseConnect, dataToJS, populatedDataToJS, firebase } from 'react-re
 import { getId } from './../../utils/dates';
 import { sample } from 'rxjs/operators/sample';
 
-const fbWrapped = firebaseConnect([ '/days', 'users' ])(DayEditor);
-
 const mapStateToProps = ({ days, firebase }) => {
     const day = days.selected;
     const a = populatedDataToJS(firebase, `days/${getId(day)}`, [{ child: 'walkers', root: 'users' }]);

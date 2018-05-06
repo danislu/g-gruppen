@@ -20,5 +20,5 @@ export default withRouterAndParamsAsProps(
     (stateProps, { dispatch }, ownProps) => Object.assign({}, ownProps, stateProps, {
       joinGroup: () => dispatch(operations.joinGroup(stateProps.group))
     })
-  )(firebaseConnect([ '/groups' ])(Invite))
+  )(firebaseConnect([ 'groups' ])(Invite))
 );

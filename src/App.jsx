@@ -24,6 +24,8 @@ import { UserIsAuthenticated, UserIsNotAuthenticated } from './container/UserAut
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './App.css';
+import { firebaseConnect, populate } from 'react-redux-firebase';
+
 
 const routes = [
   {
@@ -94,23 +96,31 @@ const getRoute = (route, idx) => {
   return <Route key={`${idx}-${path}`} exact={exact || false} path={path} component={component} />;
 };
 
+const populates = [
+  'walkers:users',
+];
+
+const Container = firebaseConnect([ { path: 'groups', populates }, 'users' ])(() => (
+  <div className="container">
+    <div className="header">
+      <Toolbar />
+    </div>
+    <div className="content">
+    {
+      routes.map(getRoute)
+    }
+    </div>
+    <Drawer />
+  </div>
+));
+
 class App extends React.PureComponent {
   render() {
     return (
         <Provider store={store}>
           <Router history={history}>
             <MuiThemeProvider muiTheme={getMuiTheme(baseTheme)}>
-            <div className="container">
-              <div className="header">
-                <Toolbar />
-              </div>
-              <div className="content">
-              {
-                routes.map(getRoute)
-              }
-              </div>
-              <Drawer />
-            </div>
+              <Container />
             </MuiThemeProvider>
           </Router>
       </Provider>

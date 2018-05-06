@@ -1,16 +1,18 @@
 import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper';
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
-import { pathToJS } from 'react-redux-firebase';
 import /*CircularProgress*/ LoadingScreen from 'material-ui/CircularProgress';
+import { compose } from 'recompose';
+import { isEmpty, isLoaded } from 'react-redux-firebase';
 
 const locationHelper = locationHelperBuilder({});
 
-const authenticatingSelector = ({ firebase }) => pathToJS(firebase, 'isInitializing') === true || pathToJS(firebase, 'auth') === undefined;
+const authenticatingSelector = ({ firebase: { isInitializing, auth } }) => 
+  isInitializing === true || !isLoaded(auth);
 
 export const UserIsAuthenticated = connectedRouterRedirect({
   redirectPath: (state, ownProps) => locationHelper.getRedirectQueryParam(ownProps) || '/login',
   allowRedirectBack: true,
-  authenticatedSelector: ({ firebase }) => pathToJS(firebase, 'auth') !== null,
+  authenticatedSelector: ({ firebase: { auth } }) => isLoaded(auth) && !isEmpty(auth),
   authenticatingSelector,
   AuthenticatingComponent: LoadingScreen,
   wrapperDisplayName: 'UserIsAuthenticated',
@@ -21,6 +23,6 @@ export const UserIsNotAuthenticated = connectedRouterRedirect({
   allowRedirectBack: false,
   AuthenticatingComponent: LoadingScreen,
   redirectPath: (state, ownProps) => locationHelper.getRedirectQueryParam(ownProps) || '/',
-  authenticatedSelector: ({ firebase }) => pathToJS(firebase, 'auth') === null,
+  authenticatedSelector: ({ firebase: { auth } }) => isLoaded(auth) && isEmpty(auth),
   authenticatingSelector
 });

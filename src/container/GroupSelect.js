@@ -5,10 +5,9 @@ import { operations } from './../state/ducks/app';
 import pureify from './pureify';
 
 export default pureify(
+    // firebaseConnect([ 'groups' ]),
     connect(
-        ({ firebase }) => {
-            const groups = dataToJS(firebase, '/groups');
-            const auth = pathToJS(firebase, 'auth');
+        ({ firebase: { auth, data: { groups }} }) => {
             return {
                 groups: groups || {},
                 uid: (!isLoaded(auth) || isEmpty(auth)) ? null : auth.uid
@@ -18,5 +17,4 @@ export default pureify(
             onSelect: (id) => dispatch(operations.selectGroup(id))
         })
     ),
-    firebaseConnect([ '/groups', 'auth' ])
 )(GroupSelect);

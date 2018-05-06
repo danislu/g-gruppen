@@ -1,19 +1,17 @@
 import Drawer from './Drawer';
 import { connect } from 'react-redux';
 import { operations } from './../../state/ducks/app';
-import { dataToJS, firebaseConnect } from 'react-redux-firebase';
 import { push } from 'react-router-redux';
 import pureify from '../../container/pureify';
 import withRouterAndParamsAsProps from '../../container/withRouterAndParamsAsProps';
 
 export default pureify(
-    firebaseConnect([ '/groups' ]),
     withRouterAndParamsAsProps,
     connect(
-        ({ firebase, app: { drawerOpen }}, { match, id }) => ({
+        ({ firebase: { data: { groups }}, app: { drawerOpen }}, { match, id }) => ({
             match, 
             isOpen: drawerOpen,
-            currentGroup: dataToJS(firebase, `/groups/${id}`)
+            currentGroup: groups ? groups[id] : null,
         }),
         (dispatch) => ({ 
             drawerChange: (open) => dispatch(open ? operations.openDrawer() : operations.closeDrawer()),
